@@ -9,7 +9,7 @@ interface Props {
     color?: string;
     doubleSize?: boolean;
     blackText?: boolean;
-    onPress: ()=> void;
+    onPress: ()=> void | string | number;
 
 }
 

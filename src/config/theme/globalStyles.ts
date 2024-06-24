@@ -44,20 +44,21 @@ export const globalStyles = StyleSheet.create({
        flexDirection:'row',
        justifyContent:'center',
        flexWrap:'wrap',
-       gap: 20,
+       gap: 10,
+       
     },
     button: {
-        height:80,
-        width:80,
+        height:70,
+        width:70,
         backgroundColor:colors.darkGray,
         justifyContent:'center',
         alignItems:'center',
-        borderRadius:50,
+        borderRadius:100,
        
     },
     buttonText: {
         color:colors.textPrimary,
         fontWeight:'500',
-        fontSize:40,
+        fontSize:30,
     },
 });

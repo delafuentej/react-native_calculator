@@ -1,3 +1,4 @@
+/* eslint-disable eol-last */
 /* eslint-disable prettier/prettier */
 import { StyleSheet } from "react-native";
 
@@ -38,6 +39,25 @@ export const globalStyles = StyleSheet.create({
         fontSize:40,
         textAlign:'right',
         fontWeight:'500',
-
-    }
-})
+    },
+    rowButtons: {
+       flexDirection:'row',
+       justifyContent:'center',
+       flexWrap:'wrap',
+       gap: 20,
+    },
+    button: {
+        height:80,
+        width:80,
+        backgroundColor:colors.darkGray,
+        justifyContent:'center',
+        alignItems:'center',
+        borderRadius:50,
+       
+    },
+    buttonText: {
+        color:colors.textPrimary,
+        fontWeight:'500',
+        fontSize:40,
+    },
+});

@@ -1,14 +1,30 @@
+/* eslint-disable no-trailing-spaces */
 /* eslint-disable curly */
 /* eslint-disable eol-last */
 /* eslint-disable prettier/prettier */
-import { useState } from 'react';
+import { useRef, useState } from 'react';
+
+enum Operator {
+    add,
+    subtract,
+    multiply,
+    divide,
+}
 
 
 export const useCalculator = ()=>{
+
     const[ number, setNumber ] = useState('0');
+    console.log('number', number);
+    const [ prevNumber, setPrevNumber ] = useState('0');
+    console.log('prevNumber', prevNumber);
+    //useRef => to avoid having to change the status when not necessary
+    const lastOperation = useRef<Operator>();
+
     //  console.log('number.length',number.length);
     const resetToNull = () =>{
         setNumber('0');
+        setPrevNumber('0');
     };
     const deleteLastDigit = ()=>{
         // console.log('number.slice', number.slice(0, -1));
@@ -44,15 +60,45 @@ export const useCalculator = ()=>{
         setNumber( number + numberString);
     };
 
+    const setLastNumber = () =>{
+        // return (!number.endsWith('.')) ? setPrevNumber(number) : (number.endsWith('.')) ? setPrevNumber(number.slice(0,-1)) : setNumber('0');
+    }; //setPrevNumber(number.slice(0,-1)) // setPrevNumber(number)
+    console.log('setLastNumber',setLastNumber);
+
+    const addOp = () => {
+        setLastNumber();
+        lastOperation.current = Operator.add;
+    };
+    const subtractOp = () => {
+        setLastNumber();
+        lastOperation.current = Operator.subtract;
+    };
+    const multiplyOp = () => {
+        setLastNumber();
+        lastOperation.current = Operator.multiply;
+    };
+    const divideOp = () => {
+        setLastNumber();
+        lastOperation.current = Operator.divide;
+    };
+
+
+
+
     return{
         //properties:
         number,
+        prevNumber,
 
         //methods:
         buildNumber,
         resetToNull,
         deleteLastDigit,
         toggleSign,
+        addOp,
+        subtractOp,
+        multiplyOp,
+        divideOp,
 
     };
 };

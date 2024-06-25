@@ -1,31 +1,50 @@
-/* eslint-disable no-trailing-spaces */
-/* eslint-disable curly */
-/* eslint-disable eol-last */
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable prettier/prettier */
-import { useRef, useState } from 'react';
+
+import { useEffect, useRef, useState } from 'react';
 
 enum Operator {
-    add,
-    subtract,
-    multiply,
-    divide,
+    add = '+',
+    subtract = '−',
+    multiply = '×',
+    divide = '÷',
 }
 
 
 export const useCalculator = ()=>{
 
     const[ number, setNumber ] = useState('0');
-    console.log('number', number);
+    // console.log('number', number);
     const [ prevNumber, setPrevNumber ] = useState('0');
-    console.log('prevNumber', prevNumber);
+    // console.log('prevNumber', prevNumber);
+    const [ formula , setFormula ] = useState('');
+
     //useRef => to avoid having to change the status when not necessary//
     const lastOperation = useRef<Operator>();
-    console.log('lastOperation', lastOperation);
+
+    useEffect(()=>{
+        if( lastOperation.current){
+            const firstPartFormula = formula.split(' ').at(0);
+            setFormula(`${firstPartFormula} ${lastOperation.current} ${number}`);
+        }else{
+            setFormula(number);
+        }
+    },[ number]);
+
+    //to display the result on the screen while typing
+    useEffect(()=>{
+        const subResult = calculateSubResult();
+        setPrevNumber(`${subResult}`);
+    }, [formula]);
+    // console.log('lastOperation', lastOperation);
 
     //  console.log('number.length',number.length);
     const resetToNull = () =>{
         setNumber('0');
         setPrevNumber('0');
+        lastOperation.current = undefined;
+        setFormula('');
     };
     const deleteLastDigit = ()=>{
         // console.log('number.slice', number.slice(0, -1));
@@ -62,10 +81,11 @@ export const useCalculator = ()=>{
     };
 
     const setLastNumber = () =>{
+        calculateResult();
          (number.endsWith('.')) ? setPrevNumber(number.slice(0, -1)) : setPrevNumber(number);
           setNumber('0');
         // return (number.endsWith('.')) ? setPrevNumber(number.slice(0, -1)) : (!number.endsWith('.')) ? setPrevNumber(number) : '';
-    }; 
+    };
     console.log('setLastNumber',setLastNumber);
 
     const addOp = () => {
@@ -86,26 +106,38 @@ export const useCalculator = ()=>{
     };
 
     const calculateResult = () =>{
-        const number1 = Number(number);
-        const number2 = Number(prevNumber);
+        const result = calculateSubResult();
+        setFormula(`${result}`);
 
-        switch( lastOperation.current){
-            case Operator.add:
-                setNumber(`${ number1 + number2}`);
-                break;
-            case Operator.subtract:
-                setNumber(`${ number2 - number1}`);
-                break;
-            case Operator.multiply:
-                setNumber(`${ number1 * number2}`);
-                break;
-            case Operator.divide:
-                setNumber(`${ number2 / number1}`);
-                break;
-            default:
-                throw new Error('Operation not implemented')
-        }
+        lastOperation.current = undefined;
         setPrevNumber('0');
+    };
+
+    const calculateSubResult = ():number =>{
+        // const number1 = Number(number);
+        // const number2 = Number(prevNumber);
+        const [firstValue, operation, secondValue] = formula.split(' ');
+        const number1 = Number(firstValue);
+        const number2 = Number(secondValue);
+
+        if(isNaN(number2)) return number1;
+
+        switch( operation){
+            case Operator.add:
+                return number1 + number2;
+                // setNumber(`${ number1 + number2}`);
+            case Operator.subtract:
+                return number1 - number2;
+                // setNumber(`${ number2 - number1}`);
+            case Operator.multiply:
+                return number1 * number2;
+                // setNumber(`${ number1 * number2}`);
+            case Operator.divide:
+                return number1 / number2;
+                // setNumber(`${ number2 / number1}`);
+            default:
+                throw new Error('Operation not implemented');
+        }
     };
 
 
@@ -113,6 +145,7 @@ export const useCalculator = ()=>{
         //properties:
         number,
         prevNumber,
+        formula,
 
         //methods:
         buildNumber,
@@ -124,7 +157,6 @@ export const useCalculator = ()=>{
         multiplyOp,
         divideOp,
         calculateResult,
-       
 
     };
 };

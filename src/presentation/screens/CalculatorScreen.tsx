@@ -2,13 +2,13 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable react/react-in-jsx-scope */
 /* eslint-disable prettier/prettier */
-import { Pressable, Text, View } from 'react-native';
+import { Text, View } from 'react-native';
 import { globalStyles, colors } from '../../config/theme/globalStyles';
 import { CalculatorButton } from '../components/CalculatorButton';
 import { useCalculator } from '../hooks/useCalculator';
 
 export const CalculatorScreen = () => {
-    const {number, prevNumber, buildNumber, resetToNull, deleteLastDigit, toggleSign, addOp, subtractOp, multiplyOp, divideOp, calculateResult } = useCalculator();
+    const {number, prevNumber,formula, buildNumber, resetToNull, deleteLastDigit, toggleSign, addOp, subtractOp, multiplyOp, divideOp, calculateResult } = useCalculator();
   console.log('number', number, 'prevNumber',prevNumber);
     return (
     <View style={globalStyles.mainContainer}>
@@ -18,13 +18,20 @@ export const CalculatorScreen = () => {
                 adjustsFontSizeToFit // to fit the fontsize of the number to the screen size
                 numberOfLines={1}
                 style={globalStyles.mainResult}
-                >{number}
+                >{formula}
             </Text>
-            <Text
-                adjustsFontSizeToFit // to fit the fontsize of the number to the screen size
-                numberOfLines={1}
-                style={globalStyles.subResult}>{(prevNumber === '0') ? '' : prevNumber}
-            </Text>
+            {
+                (formula === prevNumber) ?
+                <Text style={globalStyles.subResult}></Text> 
+                : (
+                    <Text
+                    adjustsFontSizeToFit // to fit the fontsize of the number to the screen size
+                    numberOfLines={1}
+                    style={globalStyles.subResult}>{ prevNumber}
+                    </Text>
+                )
+            }
+
         </View>
         {/* math operations buttons */}
         <View style={globalStyles.rowButtons}>

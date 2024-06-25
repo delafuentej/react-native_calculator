@@ -18,8 +18,9 @@ export const useCalculator = ()=>{
     console.log('number', number);
     const [ prevNumber, setPrevNumber ] = useState('0');
     console.log('prevNumber', prevNumber);
-    //useRef => to avoid having to change the status when not necessary
+    //useRef => to avoid having to change the status when not necessary//
     const lastOperation = useRef<Operator>();
+    console.log('lastOperation', lastOperation);
 
     //  console.log('number.length',number.length);
     const resetToNull = () =>{
@@ -61,8 +62,10 @@ export const useCalculator = ()=>{
     };
 
     const setLastNumber = () =>{
-        // return (!number.endsWith('.')) ? setPrevNumber(number) : (number.endsWith('.')) ? setPrevNumber(number.slice(0,-1)) : setNumber('0');
-    }; //setPrevNumber(number.slice(0,-1)) // setPrevNumber(number)
+         (number.endsWith('.')) ? setPrevNumber(number.slice(0, -1)) : setPrevNumber(number);
+          setNumber('0');
+        // return (number.endsWith('.')) ? setPrevNumber(number.slice(0, -1)) : (!number.endsWith('.')) ? setPrevNumber(number) : '';
+    }; 
     console.log('setLastNumber',setLastNumber);
 
     const addOp = () => {
@@ -82,7 +85,28 @@ export const useCalculator = ()=>{
         lastOperation.current = Operator.divide;
     };
 
+    const calculateResult = () =>{
+        const number1 = Number(number);
+        const number2 = Number(prevNumber);
 
+        switch( lastOperation.current){
+            case Operator.add:
+                setNumber(`${ number1 + number2}`);
+                break;
+            case Operator.subtract:
+                setNumber(`${ number2 - number1}`);
+                break;
+            case Operator.multiply:
+                setNumber(`${ number1 * number2}`);
+                break;
+            case Operator.divide:
+                setNumber(`${ number2 / number1}`);
+                break;
+            default:
+                throw new Error('Operation not implemented')
+        }
+        setPrevNumber('0');
+    };
 
 
     return{
@@ -99,6 +123,8 @@ export const useCalculator = ()=>{
         subtractOp,
         multiplyOp,
         divideOp,
+        calculateResult,
+       
 
     };
 };

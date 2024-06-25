@@ -8,7 +8,7 @@ import { CalculatorButton } from '../components/CalculatorButton';
 import { useCalculator } from '../hooks/useCalculator';
 
 export const CalculatorScreen = () => {
-    const {number, prevNumber, buildNumber, resetToNull, deleteLastDigit, toggleSign, addOp, subtractOp, multiplyOp, divideOp } = useCalculator();
+    const {number, prevNumber, buildNumber, resetToNull, deleteLastDigit, toggleSign, addOp, subtractOp, multiplyOp, divideOp, calculateResult } = useCalculator();
   console.log('number', number, 'prevNumber',prevNumber);
     return (
     <View style={globalStyles.mainContainer}>
@@ -136,7 +136,7 @@ export const CalculatorScreen = () => {
                 color = {colors.darkGray}
                 />
             <CalculatorButton
-                 onPress={()=> console.log('=')}
+                onPress={calculateResult}
                 label ='='
                 color = {colors.orange}
             />

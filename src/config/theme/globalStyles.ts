@@ -18,16 +18,14 @@ export const globalStyles = StyleSheet.create({
         flex:1,
         padding: 20,
         justifyContent:'flex-end',
-        height:'100%',
 
     },
     sciFiContainer:{
-        height: '30%',
-        marginVertical:10,
+        // height: '30%',
     },
     mathOpContainer:{
-        marginTop:20,
-        height: '50%',
+        marginTop:5,
+        // height: '50%',
     },
     background: {
         flex:1,

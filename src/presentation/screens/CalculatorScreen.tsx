@@ -1,3 +1,4 @@
+/* eslint-disable no-trailing-spaces */
 /* eslint-disable jsx-quotes */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable react/react-in-jsx-scope */
@@ -21,7 +22,7 @@ export const CalculatorScreen = () => {
             subtractOp, 
             multiplyOp, 
             divideOp, 
-            calculateResult 
+            calculateResult,
         } = useCalculator();
     console.log('number', number, 'prevNumber',prevNumber);
     return (
@@ -49,7 +50,7 @@ export const CalculatorScreen = () => {
         </View>
 
         {/* SciFi buttons */}
-        <View styles={globalStyles.sciFiContainer}>
+        <View style={globalStyles.sciFiContainer}>
             <View style={globalStyles.rowButtons}>
                 <CalculatorSciFiButton
                     onPress={()=>{}}

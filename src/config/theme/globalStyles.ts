@@ -6,6 +6,7 @@ export const colors = {
     darkGray: '#2d2d2d',
     lightGray: '#9b9b9b',
     orange:'#ff9427',
+    yellow:'#fff633',
     lightBlue:'#48dbcc',
     textPrimary: 'white',
     textSecondary: '#666666',
@@ -17,7 +18,16 @@ export const globalStyles = StyleSheet.create({
         flex:1,
         padding: 20,
         justifyContent:'flex-end',
+        height:'100%',
 
+    },
+    sciFiContainer:{
+        height: '30%',
+        marginVertical:10,
+    },
+    mathOpContainer:{
+        marginTop:20,
+        height: '50%',
     },
     background: {
         flex:1,
@@ -26,6 +36,7 @@ export const globalStyles = StyleSheet.create({
     operationsDialer: {
         paddingHorizontal:30,
         paddingBottom:20,
+        height:'20%',
     },
     mainResult: {
         color: colors.textPrimary,
@@ -44,8 +55,8 @@ export const globalStyles = StyleSheet.create({
        flexDirection:'row',
        justifyContent:'center',
        flexWrap:'wrap',
-       gap: 10,
-       
+       marginTop:10,
+       gap:10,
     },
     button: {
         height:70,
@@ -53,12 +64,24 @@ export const globalStyles = StyleSheet.create({
         backgroundColor:colors.darkGray,
         justifyContent:'center',
         alignItems:'center',
-        borderRadius:100,
-       
+        borderRadius:20,
     },
     buttonText: {
         color:colors.textPrimary,
         fontWeight:'500',
         fontSize:30,
+    },
+    sciFiButton: {
+        height:30,
+        width:40,
+        backgroundColor: colors.yellow,
+        justifyContent:'center',
+        alignItems:'center',
+        borderRadius:10,
+        padding:3,
+    },
+    sciFiButtonText: {
+        color: colors.darkGray,
+        fontSize:15,
     },
 });
